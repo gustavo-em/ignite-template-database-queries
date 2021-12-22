@@ -1,12 +1,18 @@
 import {
-  Connection, createConnection, getRepository, Repository,
-} from 'typeorm';
+  Connection,
+  createConnection,
+  getRepository,
+  Repository,
+} from "typeorm";
 
-import { Game } from '../modules/games/entities/Game';
-import { User } from '../modules/users/entities/User';
-
-import { UsersRepository } from '../modules/users/repositories/implementations/UsersRepository';
-import { GamesRepository } from '../modules/games/repositories/implementations/GamesRepository';
+import { Game } from "../modules/games/entities/Game";
+import {
+  GamesRepository,
+} from "../modules/games/repositories/implementations/GamesRepository";
+import { User } from "../modules/users/entities/User";
+import {
+  UsersRepository,
+} from "../modules/users/repositories/implementations/UsersRepository";
 
 const usersSeed: User[] = [
   {
@@ -46,7 +52,7 @@ const gamesSeed: Pick<Game, 'title'>[] = [
   },
 ];
 
-describe('Repositories', () => {
+describe('Repositories', () => { 
   let connection: Connection;
 
   let ormUsersRepository: Repository<User>;

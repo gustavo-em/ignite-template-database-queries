@@ -1,8 +1,14 @@
-import { getRepository, Repository } from 'typeorm';
+import {
+  getRepository,
+  Repository,
+} from "typeorm";
 
-import { IFindUserWithGamesDTO, IFindUserByFullNameDTO } from '../../dtos';
-import { User } from '../../entities/User';
-import { IUsersRepository } from '../IUsersRepository';
+import {
+  IFindUserByFullNameDTO,
+  IFindUserWithGamesDTO,
+} from "../../dtos";
+import { User } from "../../entities/User";
+import { IUsersRepository } from "../IUsersRepository";
 
 export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
@@ -12,9 +18,16 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findUserWithGamesById({
-    user_id,
+    user_id, 
   }: IFindUserWithGamesDTO): Promise<User> {
     // Complete usando ORM
+    
+    let userWtGames = await this.repository.find({
+      relations: ['games'],
+      where: {id: user_id}  
+    })
+
+    return userWtGames[0];  
   }
 
   async findAllUsersOrderedByFirstName(): Promise<User[]> {
@@ -27,4 +40,4 @@ export class UsersRepository implements IUsersRepository {
   }: IFindUserByFullNameDTO): Promise<User[] | undefined> {
     return this.repository.query(); // Complete usando raw query
   }
-}
+} 
