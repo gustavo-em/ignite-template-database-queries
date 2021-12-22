@@ -1,30 +1,40 @@
-import { getRepository, Repository } from 'typeorm';
+import "../../entities/Game";
 
-import { User } from '../../../users/entities/User';
-import { Game } from '../../entities/Game';
+import {
+  getRepository,
+  Repository,
+} from "typeorm";
 
-import { IGamesRepository } from '../IGamesRepository';
+import { User } from "../../../users/entities/User";
+import { IGamesRepository } from "../IGamesRepository";
 
 export class GamesRepository implements IGamesRepository {
   private repository: Repository<Game>;
+  private a: Game;
 
   constructor() {
+    this.a = new Game()
     this.repository = getRepository(Game);
   }
 
   async findByTitleContaining(param: string): Promise<Game[]> {
     return this.repository
       .createQueryBuilder()
-      // Complete usando query builder
+    // Complete usando query builder
   }
 
   async countAllGames(): Promise<[{ count: string }]> {
-    return this.repository.query(); // Complete usando raw query
+    const [Game, number] = await this.repository.
+      createQueryBuilder("games")
+      .getManyAndCount(); // Complete usando raw query
+
+    return [{ count: number.toString() }]
   }
 
   async findUsersByGameId(id: string): Promise<User[]> {
     return this.repository
-      .createQueryBuilder()
-      // Complete usando query builder
+      .createQueryBuilder();
+    // Complete usando query builder
   }
 }
+

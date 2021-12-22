@@ -6,9 +6,9 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
-import { Game } from '../../games/entities/Game';
+import { Game } from "../../games/entities/Game";
 
 @Entity('users')
 export class User {

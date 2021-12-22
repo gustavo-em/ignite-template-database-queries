@@ -195,7 +195,7 @@ describe('Repositories', () => {
   });
 
   it('[GamesRepository] should be able to get the total count of games', async () => {
-    const [{ count }] = await gamesRepository.countAllGames();
+    const [{ count }] = await gamesRepository.countAllGames()
 
     expect(count).toBe('4');
   });
