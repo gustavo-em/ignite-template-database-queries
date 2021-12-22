@@ -6,6 +6,7 @@ import {
 } from "typeorm";
 
 import { User } from "../../../users/entities/User";
+import { Game } from '../../../games/entities/Game'
 import { IGamesRepository } from "../IGamesRepository";
 
 export class GamesRepository implements IGamesRepository {
