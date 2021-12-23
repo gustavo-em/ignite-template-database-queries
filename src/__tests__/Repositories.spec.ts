@@ -52,7 +52,7 @@ const gamesSeed: Pick<Game, 'title'>[] = [
   },
 ];
 
-describe('Repositories', () => { 
+describe('Repositories', () => {
   let connection: Connection;
 
   let ormUsersRepository: Repository<User>;

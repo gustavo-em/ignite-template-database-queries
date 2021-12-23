@@ -1,5 +1,7 @@
 import {
   getRepository,
+  Like,
+  Raw,
   Repository,
 } from "typeorm";
 
@@ -33,11 +35,11 @@ export class UsersRepository implements IUsersRepository {
   async findAllUsersOrderedByFirstName(): Promise<User[]> {
 
     const usersFirstName = await
-    this.repository
-    .createQueryBuilder("user")
-    .select('first_name')
-    .orderBy("user.first_name", "ASC")
-    .getRawMany();
+      this.repository
+        .createQueryBuilder("user")
+        .select('first_name')
+        .orderBy("user.first_name", "ASC")
+        .getRawMany();
 
 
     return usersFirstName; // Complete usando raw query
@@ -46,7 +48,14 @@ export class UsersRepository implements IUsersRepository {
   async findUserByFullName({
     first_name,
     last_name,
-  }: IFindUserByFullNameDTO): Promise<User[] | undefined> {
-    return this.repository.query(); // Complete usando raw query
+  }: IFindUserByFullNameDTO): Promise<User[] | undefined> { // Complete usando raw query
+    let user =
+      await this.repository.
+        find({
+          first_name: Raw((e) => `${e} ILIKE '%${first_name}%'`)
+        })
+
+    return user;
+
   }
 } 
